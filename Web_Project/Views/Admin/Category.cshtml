@@ -1,0 +1,70 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model PagedList.Core.IPagedList<Web_Project.Models.Category>
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+}
+
+<link rel="stylesheet" href="~/css/Admin/Table.css" asp-append-version="true" />
+
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+    <div class="container project-list-margin">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <strong>@TempData["SuccessMessage"]</strong>
+            </div>
+        }
+        @if (TempData["DeleteMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>@TempData["DeleteMessage"]</strong>
+            </div>
+        }
+        @if (TempData["UpdateMessage"] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                <strong>@TempData["UpdateMessage"]</strong>
+            </div>
+        }
+            <a type="button" class="btn btn-outline-primary mb-2" asp-controller="Admin" asp-action="AddCategory">@localizer["CategoryAddButton"]</a>
+            <div class="mb-4">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">@localizer["CategorySearch"]</label>
+                <form method="get" asp-controller="Admin" asp-action="Category">
+                    <div class="input-group">
+                        <input placeholder="@localizer["CategorySearchPlaceHolder"]" class="form-control" type="text" name="keyword" value="@ViewBag.keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table colored-header datatable project-list">
+                    <thead>
+                        <tr>
+                            <th>@localizer["CategoryName"]</th>
+                            <th>@localizer["CategoryUploadDate"]</th>
+                            <th>@localizer["CategoryEdit"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Category in Model)
+                        {
+                            <tr>
+                                <td><a href="/Project/List/List?keyword=@Category.Name">@Category.Name</a></td>
+                                <td>@Category.CreateDate</td>
+                                <td>
+                                    <a type="button" class="btn btn-success" href="./UpdateCategory/@Category.Id"><i class="fas fa-edit"></i></a>
+                                    <a type="button" class="btn btn-danger" asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@Category.Id"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <pager list="@Model" asp-controller="Admin" asp-action="Category" asp-route-keyword="@ViewBag.keyword"></pager>
+        </div>
+    </div>

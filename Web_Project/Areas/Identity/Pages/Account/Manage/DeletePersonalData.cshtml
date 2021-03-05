@@ -1,0 +1,52 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model DeletePersonalDataModel
+@{
+    ViewData["Title"] = @localizer["PageTitle"];
+
+}
+<link rel="stylesheet" href="~/css/Account/ProfileSettings.css" asp-append-version="true" />
+
+<div class="container light-style flex-grow-1 container-p-y card-margin">
+    <div class="row no-gutters row-bordered row-border-light">
+        <div class="col-md-9">
+            <div class="tab-content">
+
+                <div class="tab-pane fade active show">
+
+                    <hr class="border-light m-0">
+
+                    <div class="card-body">
+                        <h4 class="font-weight-bold">@localizer["Title"]</h4>
+                        <hr />
+                        <div class="alert alert-danger" role="alert">         
+                                <strong>@localizer["Content"]</strong>
+                        </div>
+
+
+
+                        <form id="delete-user" method="post" class="form-group">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            @if (Model.RequirePassword)
+                            {
+
+                                <div class="form-group">
+                                    <label class="form-label font-weight-bold">@localizer["Password"]</label>
+                                    <input asp-for="Input.Password" class="form-control" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <button class="btn btn-outline-danger" type="submit">@localizer["DeleteButton"]</button>
+
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

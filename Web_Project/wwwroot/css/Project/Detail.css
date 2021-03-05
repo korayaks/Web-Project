@@ -1,0 +1,32 @@
+﻿.project-detail-margin {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+}
+
+    .ibox:after,
+    .ibox:before {
+        display: table;
+    }
+
+.table-item{
+    font-weight: 600;
+}
+
+.table-a {
+    color: black !important;
+}
+
+    .table-a:hover {
+        text-decoration: none;
+        color: #4C6FFD !important;
+    }
+
+
+

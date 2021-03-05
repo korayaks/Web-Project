@@ -1,0 +1,17 @@
+.container-error {
+    width: 100%;
+    margin-top: 200px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #343434
+}
+
+.error-a {
+    color: #1a222b !important;
+}
+
+    .error-a:hover {
+        text-decoration: none;
+        color: #4C6FFD !important;
+    }

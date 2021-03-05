@@ -1,0 +1,157 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using System.Security.Claims;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/css/Layout/Navbar.css" />
+    <link rel="stylesheet" href="~/css/Layout/Footer.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow navbar-background-color">
+            <div class="container">
+                <a class="navbar-brand navbar-item" asp-area="" asp-controller="Home" asp-action="Index">Projem</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link navbar-item" asp-controller="Project" asp-action="List">@localizer["Projects"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-item" asp-controller="Question" asp-action="Send">@localizer["Help"]</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link navbar-item" asp-area="" asp-controller="Project" asp-action="Create">@localizer["CreateProject"]</a>
+                            </li>
+                        }
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link navbar-item" asp-area="" asp-controller="Admin" asp-action="Dashboard">@localizer["Dashboard"]</a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <div class="container">
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                @*<div class="footer-logo">
+                                    <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
+                                </div>*@
+                                <div class="footer-text">
+                                    <p>
+                                        @localizer["FooterContent"]
+                                    </p>
+
+                                   
+                                        <partial name="_Culture" />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>@localizer["FooterPopularCategories"]</h3>
+                                </div>
+                                <ul>
+                                   
+                                    <li><a href="/Project/List/List?keyword=Yazılım">Yazılım</a></li>
+                                    <li><a href="/Project/List/List?keyword=Donanım">Donanım</a></li>
+                                    <li><a href="/Project/List/List?keyword=Endüstri">Endüstri</a></li>
+                                    <li><a href="/Project/List/List?keyword=İnşaat">İnşaat</a></li>
+                                    <li><a href="/Project/List/List?keyword=Makine">Makine</a></li>
+                                    <li><a href="/Project/List/List?keyword=Elektronik">Elektronik</a></li>
+                                    <li><a href="/Project/List/List?keyword=Mimarlık">Mimarlık</a></li>
+                                    <li><a href="/Project/List/List?keyword=Elektrik">Elektrik</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>@localizer["FooterPages"]</h3>
+                                </div>
+                                <ul>
+                                    <li><a asp-controller="Home" asp-action="Index">@localizer["FooterHomePage"]</a></li>
+                                    <li><a asp-area="Identity" asp-page="/Account/Login">@localizer["FooterLoginPage"]</a></li>
+
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Profile" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">@localizer["FooterProfilePage"]</a></li>
+                                    }
+                                    <li><a asp-controller="Project" asp-action="Create">@localizer["FooterCreateProjectPage"]</a></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Settings" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">@localizer["FooterSettingsPage"]</a></li>
+                                        <li><a asp-controller="Account" asp-action="ListProject" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">@localizer["FooterListMyProjectPage"]</a></li>
+                                    }
+                                        <li><a asp-area="Identity" asp-page="/Account/Register">@localizer["FooterRegisterPage"]</a></li>
+                                        <li><a asp-controller="Project" asp-action="List">@localizer["FooterListAllProjectPage"]</a></li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2020 @localizer["Copyright"] <a a  asp-controller="Home" asp-action="Index">Projem</a></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a  asp-controller="Home" asp-action="Index">@localizer["FooterHome"]</a></li>
+                                    <li><a asp-controller="Question" asp-action="Send">@localizer["FooterHelp"]</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

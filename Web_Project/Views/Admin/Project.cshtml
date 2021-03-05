@@ -1,0 +1,76 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model PagedList.Core.IPagedList<Web_Project.Models.Project>
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+}
+
+<link rel="stylesheet" href="~/css/Admin/Table.css" asp-append-version="true" />
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+    <div class="container project-list-margin">
+        @if (TempData["DeleteMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>@TempData["DeleteMessage"]</strong>
+            </div>
+        }
+            <div class="mb-4">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">@localizer["ProjectSearch"]</label>
+                <form method="get" asp-controller="Admin" asp-action="Project">
+                    <div class="input-group">
+                        <input placeholder="@localizer["ProjectSearchPlaceHolder"]" class="form-control" type="text" name="keyword" value="@ViewBag.keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table colored-header datatable project-list">
+                    <thead>
+                        <tr>
+                            <th>@localizer["ProjectTitle"]</th>
+                            <th>@localizer["ProjectOwner"]</th>
+                            <th>@localizer["ProjectCategory"]</th>
+                            <th>@localizer["ProjectCreatedDate"]</th>
+                            <th>@localizer["ProjectStatus"]</th>
+                            <th>@localizer["ProjectEdit"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Project in Model)
+                        {
+                            <tr>
+                                <td><a href="/Project/Detail/@Project.Id">@Project.Title</a></td>
+                                <td><a href="/Account/Profile/@Project.UserId">@Project.UserName</a></td>
+                                <td><a href="/Project/List/List?keyword=@Project.Category">@Project.Category</a></td>
+                                <td>@Project.CreateDate</td>
+                                @if (Project.Status == 0)
+                                {
+                                    <td>@localizer["ProjectPassive"]</td>
+                                }
+                                else if (Project.Status == 1)
+                                {
+                                    <td>@localizer["ProjectActive"]</td>
+                                }
+                                else
+                                {
+                                    <td>@localizer["ProjectFinished"]</td>
+                                }
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="/Project/Detail/@Project.Id"><i class="far fa-eye"></i></a>
+                                    <a type="button" class="btn btn-success" href="/Project/Update/@Project.Id"><i class="fas fa-edit"></i></a>
+                                    <a type="button" class="btn btn-danger" asp-controller="Admin" asp-action="DeleteProject" asp-route-id="@Project.Id"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <pager list="@Model" asp-controller="Admin" asp-action="Project" asp-route-keyword="@ViewBag.keyword"></pager>
+        </div>
+    </div>
+
+

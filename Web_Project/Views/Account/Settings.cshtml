@@ -1,0 +1,98 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Web_Project.Models;
+@using Proje.Models;
+@model User
+
+@{ ViewData["Title"] = @localizer["PageTitle"]; }
+
+<link rel="stylesheet" href="~/css/Account/ProfileSettings.css" asp-append-version="true" />
+
+<div class="container light-style flex-grow-1 container-p-y card-margin">
+
+    <form method="post" asp-action="Settings">
+
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-9">
+                <div class="tab-content">
+
+                    <div class="tab-pane fade active show">
+
+                        <hr class="border-light m-0">
+
+                        <div class="card-body">
+
+                            <input type="hidden" asp-for="@Model.Id" />
+                            <input type="hidden" asp-for="@Model.UserName" />
+                            <input type="hidden" asp-for="@Model.PasswordHash" />
+                            <input type="hidden" asp-for="@Model.CreateDate" />
+                            <input type="hidden" asp-for="@Model.Email" />
+
+                            <h4 class="font-weight-bold">@localizer["About"]</h4>
+                            <hr />
+                            <label class="form-label font-weight-bold">@localizer["Name"]</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" asp-for="@Model.Name">
+                                <span asp-validation-for="@Model.Name" class="text-danger small"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Birthday"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.BirthdayDate">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Summary"]</label>
+                                <textarea class="form-control" rows="5" asp-for="@Model.Summary"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Interests"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Interest">
+                            </div>
+
+                            <h4 class="font-weight-bold">@localizer["EducationInformation"]</h4>
+                            <hr />
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["School"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.School">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Department"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Department">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Status"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Status">
+                            </div>
+
+                            <h4 class="font-weight-bold">@localizer["ContactInformation"]</h4>
+                            <hr />
+                            <div class="form-group">
+                                <label class="form-labe font-weight-bold">@localizer["Site"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Website">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Twitter"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Twitter">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Facebook"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Facebook">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Github"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Github">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label font-weight-bold">@localizer["Instagram"]</label>
+                                <input type="text" class="form-control" asp-for="@Model.Instagram">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="@localizer["Button"]" class="btn btn-primary btn-block " />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

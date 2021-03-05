@@ -1,0 +1,50 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Proje.Models;
+@model List<User>
+@{ ViewData["Title"] = localizer["PageTitle"]; }
+
+<link rel="stylesheet" href="~/css/Admin/Table.css" asp-append-version="true" />
+
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+    <div class="container project-list-margin">
+        @if (TempData["ErrorMessage"] != null)
+        {
+    <div class="alert alert-warning" role="alert">
+        <strong>@TempData["ErrorMessage"]</strong>
+    </div>}
+        @if (TempData["SuccessMessage"] != null)
+        {
+    <div class="alert alert-danger" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+    </div>}
+        <div class="table-responsive">
+            <table class="table colored-header datatable project-list">
+                <thead>
+                    <tr>
+                        <th>@localizer["UserName"]</th>
+                        <th>@localizer["UserMail"]</th>
+                        <th>@localizer["UserRegisterDate"]</th>
+                        <th>@localizer["Edit"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var User in Model)
+                    {
+        <tr>
+            <td><a href="/Account/Profile/@User.Id">@User.Name</a></td>
+            <td><a href="/Account/Profile/@User.Id">@User.Email</a></td>
+            <td>@User.CreateDate</td>
+            <td>
+
+                <a type="button" class="btn btn-danger" asp-controller="Admin" asp-action="RemoveAdmin" asp-route-id="@User.Id"><i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

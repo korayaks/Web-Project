@@ -1,0 +1,16 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = @localizer["PageTitle"];
+}
+
+<link rel="stylesheet" href="~/css/Admin/AccessDenied.css" />
+
+<header>
+    <div class="container admin-margin">
+        <h1 class="text-danger">@ViewData["Title"]</h1>
+        <p class="text-danger">@localizer["Message"]</p>
+        <a asp-controller="Home" asp-action="Index"><p>@localizer["Return"]</p></a>
+    </div>
+</header>

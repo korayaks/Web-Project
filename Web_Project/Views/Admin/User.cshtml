@@ -1,0 +1,71 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Web_Project.Models;
+@using Proje.Models;
+@model PagedList.Core.IPagedList<Proje.Models.User>
+
+@{ ViewData["Title"] = localizer["PageTitle"]; }
+
+<link rel="stylesheet" href="~/css/Admin/Table.css" asp-append-version="true" />
+
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+    <div class="container project-list-margin">
+        @if (TempData["WarningMessage"] != null)
+        {
+    <div class="alert alert-warning" role="alert">
+        <strong>@TempData["WarningMessage"]</strong>
+    </div>}
+        @if (TempData["SuccessMessage"] != null)
+        {
+    <div class="alert alert-success" role="alert">
+        <strong>@TempData["SuccessMessage"]</strong>
+    </div>}
+        @if (TempData["DeleteMessage"] != null)
+        {
+    <div class="alert alert-danger" role="alert">
+        <strong>@TempData["DeleteMessage"]</strong>
+    </div>}
+        <a type="button" class="btn btn-outline-primary mb-2" asp-controller="Admin" asp-action="RoleAdmin">@localizer["RoleButton"]</a>
+        <div class="mb-4">
+            <label for="exampleFormControlSelect1" class="font-weight-bold">@localizer["UserSearch"]</label>
+            <form method="get" asp-controller="Admin" asp-action="User">
+                <div class="input-group">
+                    <input placeholder="@localizer["UserSearchPlaceHolder"]" class="form-control" type="text" name="keyword" value="@ViewBag.keyword">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table colored-header datatable project-list">
+                <thead>
+                    <tr>
+                        <th>@localizer["UserName"]</th>
+                        <th>@localizer["UserMail"]</th>
+                        <th>@localizer["UserRegisterDate"]</th>
+                        <th>@localizer["Edit"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var User in Model)
+                    {
+        <tr>
+            <td><a href="/Account/Profile/@User.Id">@User.Name</a></td>
+            <td><a href="/Account/Profile/@User.Id">@User.Email</a></td>
+            <td>@User.CreateDate</td>
+            <td>
+                <a type="button" class="btn btn-primary" href="/Account/Profile/@User.Id"><i class="far fa-eye"></i></a>
+                <a type="button" class="btn btn-success" href="/Account/Settings/@User.Id"><i class="fas fa-edit"></i></a>
+                <a type="button" class="btn btn-danger" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@User.Id"><i class="far fa-trash-alt"></i></a>
+                <a type="button" class="btn btn-warning" asp-controller="Admin" asp-action="AddAdmin" asp-route-id="@User.Id"><i class="far fa-user"></i></a>
+            </td>
+        </tr>
+}
+                </tbody>
+            </table>
+        </div>
+        <pager list="@Model" asp-controller="Admin" asp-action="User" asp-route-keyword="@ViewBag.keyword"></pager>
+    </div>
+</div>

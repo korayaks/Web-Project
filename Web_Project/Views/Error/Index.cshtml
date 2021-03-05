@@ -1,0 +1,17 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+}
+
+<link rel="stylesheet" href="~/css/Error/Error.css" asp-append-version="true" />
+
+
+
+<div class="container-error">
+    <h2>@localizer["Message"]</h2>
+    <h5 class="mb-5">@TempData["ErrorMessage"]</h5>
+    <div class="text-center mt-2">
+        <a class="small card-a" asp-controller="Home" asp-action="Index">@localizer["Return"]</a>
+    </div>
+</div>

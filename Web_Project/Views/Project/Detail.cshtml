@@ -1,0 +1,78 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Project
+@{ ViewData["Title"] = localizer["PageTitle"]; }
+
+
+<link rel="stylesheet" href="~/css/Project/Detail.css" asp-append-version="true" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="">
+                <div class="ibox">
+                    <div class="project-detail-margin">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                    <div class="alert alert-success" role="alert">
+                        <strong>@TempData["SuccessMessage"]</strong>
+                    </div>}
+                        @if (TempData["UpdateMessage"] != null)
+                        {
+                    <div class="alert alert-success" role="alert">
+                        <strong>@TempData["UpdateMessage"]</strong>
+                    </div>}
+ 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="m-b-md">
+                                    <h2 class="table-item">@Model.Title</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                @Model.Content
+                            </div>
+                        </div>
+                        <table class="table user-view-table m-0">
+                            <tbody>
+                                <tr>
+                                    <td class="table-item">@localizer["ProjectOwner"] :</td>
+                                    <td><a href="/Account/Profile/@Model.UserId" class="table-a">@Model.UserName</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-item">@localizer["ProjectOwnerMail"] :</td>
+                                    <td><a href="/Account/Profile/@Model.UserId" class="table-a">@Model.UserMail</a></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="table-item">@localizer["ProjectCategory"] :</td>
+                                    <td><a href="/Project/List/List?keyword=@Model.Category" class="table-a">@Model.Category</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-item">@localizer["ProjectCreateDate"] :</td>
+                                    <td>@Model.UpdateDate</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-item">@localizer["ProjectStatus"] :</td>
+
+                                    @if (Model.Status == 0)
+                                    {
+                                        <td>@localizer["ProjectStatusPassive"]</td>
+                                    }
+                                    else if (Model.Status == 1)
+                                    {
+                                        <td>@localizer["ProjectStatusActive"]</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@localizer["ProjectStatusFinished"]</td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

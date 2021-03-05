@@ -1,0 +1,61 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model PagedList.Core.IPagedList<Web_Project.Models.Question>
+
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+}
+
+<link rel="stylesheet" href="~/css/Admin/Table.css" asp-append-version="true" />
+
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+    <div class="container project-list-margin">
+        @if (TempData["DeleteMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>@TempData["DeleteMessage"]</strong>
+            </div>
+        }
+            <div class="mb-4">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">@localizer["QuestionSearch"]</label>
+                <form method="get" asp-controller="Admin" asp-action="Question">
+                    <div class="input-group">
+                        <input placeholder="@localizer["QuestionSearchPlaceHolder"]" class="form-control" type="text" name="keyword" value="@ViewBag.keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table colored-header datatable project-list">
+                    <thead>
+                        <tr>
+                            <th>@localizer["QuestionTitle"]</th>
+                            <th>@localizer["QuestionContent"]</th>
+                            <th>@localizer["QuestionOwner"]</th>
+                            <th>@localizer["QuestionCreatedDate"]</th>
+                            <th>@localizer["QuestionEdit"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Question in Model)
+                        {
+                            <tr>
+                                <td>@Question.Title</td>
+                                <td>@Question.Content</td>
+                                <td><a href="/Account/Profile/@Question.UserId">@Question.UserName</a></td>
+                                <td>@Question.SendingDate</td>
+                                <td>
+                                    <a type="button" class="btn btn-danger" asp-controller="Admin" asp-action="DeleteQuestion" asp-route-id="@Question.Id"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <pager list="@Model" asp-controller="Admin" asp-action="Question" asp-route-keyword="@ViewBag.keyword"></pager>
+        </div>
+    </div>

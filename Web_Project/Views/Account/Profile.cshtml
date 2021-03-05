@@ -1,0 +1,218 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model ViewModel
+
+@{
+    ViewData["Title"] = @localizer["PageTitle"];
+}
+<link rel="stylesheet" href="~/css/Account/Profile.css" asp-append-version="true" />
+
+<div class="container ">
+    <div class="main-body profile-margin">
+        @if(TempData["SuccessMessage"]!=null)
+        { 
+        <div class="alert alert-success" role="alert">
+            <strong>@TempData["SuccessMessage"]</strong>
+        </div>
+        }
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Name"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Name
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Email"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Email
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Status"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Status
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["School"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.School
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Department"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Department
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Birthday"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.BirthdayDate
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["AccountCreationDate"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.CreateDate
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Interests"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Interest
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Summary"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Summary
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Site"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Website
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Github"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Github
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Twitter"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Twitter
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Facebook"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Facebook
+                                </div>
+                            </div>
+                        }
+                        <hr>
+                        @foreach (var item in Model.User)
+                        {
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">@localizer["Instagram"]</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    @item.Instagram
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="card-footer text-center p-0">
+                        <div class="row no-gutters row-bordered row-border-light">
+                            <a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
+                                <div class="font-weight-bold">@localizer["Projects"]</div>
+                            </a>
+                        </div>
+
+                        <div class="accordion" id="accordionExample">
+                            @foreach (var item in Model.Project)
+                            {
+                                <div class="card">
+                                    <div class="card-header" id="@item.Id">
+                                        <h5 class="mb-0">
+                                            <a class="btn btn-link collapsed" type="button"  asp-controller="Project" asp-action="Detail" asp-route-id="@item.Id"  >
+                                                @item.Title
+                                            </a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

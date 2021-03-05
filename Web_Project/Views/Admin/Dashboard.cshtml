@@ -1,0 +1,219 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model ViewModel
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+    int projectCount = 0;
+    int userCount = 0;
+    int questionCount = 0;
+}
+
+
+<link rel="stylesheet" href="~/css/Admin/Dashboard.css" asp-append-version="true" />
+
+<div id="wrapper">
+    <partial name="Sidebar" />
+
+    <div id="content-wrapper" class="d-flex flex-column admin-margin">
+        <div id="content">
+            <div class="container-fluid" id="container-wrapper">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">@localizer["DashboardPanel"]</h1>
+
+                </div>
+
+                <div class="row mb-3">
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">@localizer["TotalNumberOfUsers"]</div>
+                                        <div class="h5 mb-2 font-weight-bold">@Model.User.Count</div>
+                                        <a class="m-0 small text-primary card-link" asp-controller="Admin" asp-action="User">@localizer["ShowAllUsers"]</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-info"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">@localizer["TotalNumberOfProjects"]</div>
+                                        <div class="h5 mb-2 font-weight-bold">@Model.Project.Count</div>
+                                        <a class="m-0 small text-primary card-link" asp-controller="Admin" asp-action="Project">@localizer["ShowAllProjects"]</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-book fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">@localizer["TotalNumberOfCategorys"]</div>
+                                        <div class="h5 mb-2 font-weight-bold">@Model.Category.Count</div>
+                                        <a class="m-0 small text-primary card-link" asp-controller="Admin" asp-action="Category">@localizer["ShowAllCategorys"]</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-list fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">@localizer["TotalNumberOfQuestions"]</div>
+                                        <div class="h5 mb-2 font-weight-bold">@Model.Question.Count</div>
+                                        <a class="m-0 small text-primary card-link" asp-controller="Admin" asp-action="Question">@localizer["ShowAllQuestions"]</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-comments fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8 col-lg-7 mb-3">
+                        <div class="card">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">@localizer["ProjectTableTitle"]</h6>
+                                <a class="m-0 float-right btn btn-danger btn-sm" asp-controller="Admin" asp-action="Project">
+                                    @localizer["ProjectTableShowAll"] <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>@localizer["ProjectTableProjectName"]</th>
+                                            <th>@localizer["ProjectTableProjectOwner"]</th>
+                                            <th>@localizer["ProjectTableCreatedDate"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var Project in Model.Project)
+                                        {
+                                            if (projectCount != 5)
+                                            {
+                                                <tr>
+                                                    <td><a href="/Project/Detail/@Project.Id">@Project.Title</a></td>
+                                                    <td><a href="/Account/Profile/@Project.UserId">@Project.UserName</a></td>
+                                                    <td>@Project.CreateDate</td>
+                                                </tr>
+                                                projectCount++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-5 mb-3">
+                        <div class="card">
+                            <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-light">@localizer["QuestionTableTitle"]</h6>
+                            </div>
+                            <div>
+                                @foreach (var Question in Model.Question)
+                                {
+                                    if (questionCount != 5)
+                                    {
+                                        <div class="customer-message align-items-center">
+                                            <a class="font-weight-bold" asp-controller="Admin" asp-action="Question">
+                                                <div class="text-truncate message-title">
+                                                    @Question.Title
+                                                </div>
+                                                <div class="small message-time"><a class="ml-4" href="/Account/Profile/@Question.UserId">@Question.UserName</a> · @Question.SendingDate</div>
+                                            </a>
+                                        </div>
+                                        questionCount++;
+                                    }
+                                }
+
+                                <div class="card-footer text-center">
+                                    <a class="m-0 small text-primary card-link" asp-controller="Admin" asp-action="Question">
+                                        @localizer["QuestionTableShowAll"] <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8 col-lg-7 mb-3">
+                        <div class="card">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">@localizer["UserTableTitle"]</h6>
+                                <a class="m-0 float-right btn btn-danger btn-sm" asp-controller="Admin" asp-action="User">
+                                    @localizer["UserTableShowAllUsers"] <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>@localizer["UserTableUserName"]</th>
+                                            <th>@localizer["UserTableEmail"]</th>
+                                            <th>@localizer["UserTableRegisterDate"]</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var User in Model.User)
+                                        {
+                                            if (userCount != 5)
+                                            {
+                                                <tr>
+                                                    <td><a href="/Account/Profile/@User.Id">@User.Name</a></td>
+                                                    <td><a href="/Account/Profile/@User.Id">@User.Email</a></td>
+                                                    <td><a href="#">@User.CreateDate</a></td>
+                                                </tr>
+                                                userCount++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+
+
+
+
+
+
+

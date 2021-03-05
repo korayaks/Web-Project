@@ -1,0 +1,86 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Project
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+    List<string> Category = new List<string>();
+    Category = ViewBag.CategoryList;
+}
+<link rel="stylesheet" href="~/css/Project/CreateUpdate.css" asp-append-version="true" />
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">@localizer["CardButtonTitle"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                @localizer["CardButtonContent"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">@localizer["CardButtonBack"]</button>
+                <a class="btn btn-close" asp-controller="Home" asp-action="Index">@localizer["CardButtonExit"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-9 col-lg-6 mx-auto">
+            <div class="card o-hidden border-0 shadow-lg card-margin">
+                <ul class="ul-card">
+                    <li class="li-card">@localizer["CardTitle"]<span class="close" data-toggle="modal" data-target="#exampleModal">&times;</span></li>
+                </ul>
+                <div class="card-body ml-4 mr-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <h1 class="h4 mb-3 title-card">@localizer["CreateTitle"]</h1>
+                            </div>
+                            <form class="user" method="post" asp-action="Create">
+
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="InputTitle" asp-for="Title">
+                                    <span asp-validation-for="Title" class="text-danger small"></span>
+                                </div>
+                                <hr />
+                                <div class="text-center">
+                                    <h1 class="h4 mb-3 title-card">@localizer["CreateContent"]</h1>
+                                </div>
+                                <textarea type="text" class="form-control textarea" id="InputTextArea" rows="6" asp-for="Content"></textarea>
+                                <span asp-validation-for="Content" class="text-danger small"></span>
+                                <hr />
+                                <div class="text-center">
+                                    <h1 class="h4 mb-3 ttitle-card">@localizer["CreateCategory"]</h1>
+                                </div>
+                                <select class="form-control select-text" id="exampleFormControlSelect1" asp-for="Category">
+                                    <option value="none" selected disabled hidden class="select-text">@localizer["CreateDefaultOption"]</option>
+                                    @foreach (var item in Category)
+                                    {
+                                        <option class="select-text">@item</option>
+                                    }
+
+
+                                </select>
+                                <span asp-validation-for="Category" class="text-danger small"></span>
+                                <div class="text-center mt-2 mb-4">
+                                    <a class="small card-a" asp-controller="Question" asp-action="Send">@localizer["Category"]</a>
+                                </div>
+                                <input type="submit" value="@localizer["CreateButton"]" class="btn btn-primary btn-block" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="~/js/FileUpload.js"></script>

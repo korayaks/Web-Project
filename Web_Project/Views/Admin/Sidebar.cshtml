@@ -1,0 +1,46 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<link rel="stylesheet" href="~/css/Admin/Dashboard.css" asp-append-version="true" />
+
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+
+
+    <li class="nav-item active ">
+        <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>@localizer["LeftDashboardPanel"]</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">
+        @localizer["LeftDashboardTables"]
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Admin" asp-action="User">
+            <i class="fas fa-fw fa-palette"></i>
+            <span>@localizer["LeftDashboardUsers"]</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Admin" asp-action="Project">
+            <i class="fas fa-fw fa-palette"></i>
+            <span>@localizer["LeftDashboardProjects"]</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Admin" asp-action="Category">
+            <i class="fas fa-fw fa-palette"></i>
+            <span>@localizer["LeftDashboardCategorys"]</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Admin" asp-action="Question">
+            <i class="fas fa-fw fa-palette"></i>
+            <span>@localizer["LeftDashboardQuestions"]</span>
+        </a>
+    </li>
+
+</ul>

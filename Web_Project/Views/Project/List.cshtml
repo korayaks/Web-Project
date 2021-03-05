@@ -1,0 +1,47 @@
+﻿@model PagedList.Core.IPagedList<Web_Project.Models.Project>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = localizer["PageTitle"];
+}
+
+
+<link rel="stylesheet" href="~/css/Project/List.css" asp-append-version="true" />
+
+<div class="container project-list-margin">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <div class="mb-4">
+                <label for="exampleFormControlSelect1" class="font-weight-bold">@localizer["ProjectSearch"]</label>
+                <form method="get" asp-controller="Project" asp-action="List">
+                    <div class="input-group">
+                        <input placeholder="@localizer["ProjectSearchDefault"]" class="form-control" type="text" name="keyword" value="@ViewBag.keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card-columns">
+                @foreach (var Project in Model)
+                {
+                    <div class="card">
+                        <div class="card-body card-bg">
+                            <span class="mb-3 badge badge-success badge-pill p-1 my-1 mr-0 category-bg">@Project.Category </span>
+                            <div><a class="card-a" href="/Project/Detail/@Project.Id">@Project.Title</a></div>
+                        </div>
+                        <div class="d-flex card-footer card-bg">
+                            <span class="align-self-center">@Project.CreateDate </span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <pager list="@Model" asp-controller="Project" asp-action="List" asp-route-keyword="@ViewBag.keyword"></pager>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/CategoryFilter.js"></script>
